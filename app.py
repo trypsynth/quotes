@@ -1,10 +1,18 @@
 from flask import Flask, render_template, request
 import db
+from dotenv import load_dotenv
+from flask_basicauth import BasicAuth
+import os
 
+load_dotenv()
 app = Flask(__name__)
+app.config["BASIC_AUTH_USERNAME"] = os.environ.get("BASIC_AUTH_USERNAME")
+app.config["BASIC_AUTH_PASSWORD"] = os.environ.get("BASIC_AUTH_PASSWORD")
+basic_auth = BasicAuth(app)
 
 
 @app.route("/", methods=["GET", "POST"])
+@basic_auth.required
 def index():
     if request.method == "POST":
         who = request.form["who"]
