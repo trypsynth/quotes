@@ -1,39 +1,24 @@
-import sqlite3
-from dataclasses import dataclass
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 
-@dataclass
-class Quote:
-    who: str
-    quote: str
-    context: str = ""
+class Quote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    who = db.Column(db.String(255), nullable=False)
+    quote = db.Column(db.Text, nullable=False)
+    context = db.Column(db.Text, nullable=False, default="")
 
 
 def setup():
-    conn = sqlite3.connect("quotes.db")
-    c = conn.cursor()
-    c.execute(
-        """CREATE TABLE IF NOT EXISTS quotes (id INTEGER PRIMARY KEY AUTOINCREMENT, who TEXT, quote TEXT, context TEXT)"""
-    )
-    conn.commit()
-    conn.close()
+    db.create_all()
 
 
 def insert_quote(who, quote, context):
-    conn = sqlite3.connect("quotes.db")
-    c = conn.cursor()
-    c.execute(
-        "INSERT INTO quotes (who, quote, context) VALUES (?, ?, ?)",
-        (who, quote, context),
-    )
-    conn.commit()
-    conn.close()
+    new_quote = Quote(who=who, quote=quote, context=context)
+    db.session.add(new_quote)
+    db.session.commit()
 
 
 def get_quotes():
-    conn = sqlite3.connect("quotes.db")
-    c = conn.cursor()
-    c.execute("SELECT who, quote, context FROM quotes")
-    quotes = [Quote(*row) for row in c.fetchall()]
-    conn.close()
-    return quotes
+    return Quote.query.all()
