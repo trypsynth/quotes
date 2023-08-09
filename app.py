@@ -9,6 +9,8 @@ app = Flask(__name__)
 app.config["BASIC_AUTH_USERNAME"] = os.environ.get("BASIC_AUTH_USERNAME")
 app.config["BASIC_AUTH_PASSWORD"] = os.environ.get("BASIC_AUTH_PASSWORD")
 basic_auth = BasicAuth(app)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///quotes.db"
+db.db.init_app(app)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -24,5 +26,6 @@ def index():
 
 
 if __name__ == "__main__":
-    db.setup()
+    with app.app_context():
+        db.setup()
     app.run()
