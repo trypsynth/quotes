@@ -1,45 +1,43 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="" utf-8" />
-    <title>Quotes</title>
+	<meta charset="" utf-8" />
+	<title>Quotes</title>
 </head>
 
 <body>
-    <h1>Quotes</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Who</th>
-                <th>Quote</th>
-                <th>Context</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for quote in quotes %}
-            <tr>
-                <td>{{ quote.who }}</td>
-                <td>{{ quote.quote }}</td>
-                <td>{{ quote.context }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <hr />
-    <h1>Add a quote</h1>
-    <form method="post">
-        <label for="who">Who:</label>
-        <input type="text" id="who" name="who" required />
-        <br />
-        <label for="quote">Quote:</label>
-        <input type="text" id="quote" name="quote" required />
-        <br />
-        <label for="context">Context:</label>
-        <input type="text" id="context" name="context" />
-        <br />
-        <input type="submit" value="Submit" />
-    </form>
+	<h1>Quotes</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Who</th>
+				<th>Quote</th>
+				<th>Context</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for quote in quotes %}
+			<tr>
+				<td>{{ quote.who }}</td>
+				<td>{{ quote.quote }}</td>
+				<td>{{ quote.context }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<hr />
+	<h1>Add a quote</h1>
+	<form method="post">
+		<label for="who">Who:</label>
+		<input type="text" id="who" name="who" required />
+		<br />
+		<label for="quote">Quote:</label>
+		<input type="text" id="quote" name="quote" required />
+		<br />
+		<label for="context">Context:</label>
+		<input type="text" id="context" name="context" />
+		<br />
+		<input type="submit" value="Submit" />
+	</form>
 </body>
-
 </html>
