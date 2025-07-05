@@ -20,9 +20,20 @@ dev = [
 [tool.ruff]
 fix = true
 line-length = 120
+target-version = "py313"
 
 [tool.ruff.lint]
-select = ["I"]
+select = [
+    "E",
+    "F",
+    "I",
+    "B",
+    "UP",
+    "C4",
+    "SIM",
+    "ARG",
+    "RUF",
+]
 
 [tool.ruff.format]
 indent-style = "tab"
